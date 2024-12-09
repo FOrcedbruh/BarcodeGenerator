@@ -94,5 +94,39 @@ namespace BarcodeGenerator
             InputTextBox.Text = "";
             BarcodeImage.Source = null;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (string.IsNullOrWhiteSpace(InputTextBox.Text))
+            {
+                MessageBox.Show("Введите текст для генерации штрих-кода.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            var barcodeWriter = new BarcodeWriter
+            {
+                Format = BarcodeFormat.QR_CODE,
+                Options = new ZXing.Common.EncodingOptions
+                {
+                    Width = 250,
+                    Height = 250,
+                    Margin = 0
+                }
+            };
+
+            var bitmap = barcodeWriter.Write(InputTextBox.Text);
+            var bitmapSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                bitmap.GetHbitmap(),
+                IntPtr.Zero,
+                Int32Rect.Empty,
+                BitmapSizeOptions.FromEmptyOptions());
+
+            BarcodeImage.Source = bitmapSource;
+        }
+
+        private void reverse_Click(object sender, RoutedEventArgs e)
+        {
+            rotate.Angle += 90;
+        }
     }
 }

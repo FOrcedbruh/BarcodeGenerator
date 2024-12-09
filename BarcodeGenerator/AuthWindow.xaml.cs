@@ -26,9 +26,9 @@ namespace BarcodeGenerator
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (login.Text == "" || passowrd.Password == "")
+            if (login.Text != "Nikita" || passowrd.Password != "password")
             {
-                MessageBox.Show("Введите логин и пароль");
+                MessageBox.Show("Неверные логин и пароль");
             } else
             {
                 MainWindow mainWindow = new MainWindow();
