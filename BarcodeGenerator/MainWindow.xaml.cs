@@ -33,7 +33,7 @@ namespace BarcodeGenerator
                     Options = new ZXing.Common.EncodingOptions
                     {
                         Height = 150, 
-                        Width = 300,  
+                        Width = 150,  
                         Margin = 10  
                     }
                 };
@@ -108,8 +108,8 @@ namespace BarcodeGenerator
                 Format = BarcodeFormat.QR_CODE,
                 Options = new ZXing.Common.EncodingOptions
                 {
-                    Width = 250,
-                    Height = 250,
+                    Width = 150,
+                    Height = 150,
                     Margin = 0
                 }
             };
@@ -127,6 +127,43 @@ namespace BarcodeGenerator
         private void reverse_Click(object sender, RoutedEventArgs e)
         {
             rotate.Angle += 90;
+        }
+
+
+        private void Button_ClickGenerate(object sender, RoutedEventArgs e)
+        {
+            string inputText = InputTextBox.Text;
+
+            if (string.IsNullOrWhiteSpace(inputText))
+            {
+                MessageBox.Show("Введите текст для генерации штрих-кода.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            try
+            {
+
+                var barcodeWriter = new BarcodeWriter
+                {
+                    Format = BarcodeFormat.DATA_MATRIX,
+                    Options = new ZXing.Common.EncodingOptions
+                    {
+                        Height = 150,
+                        Width = 150,
+                        Margin = 10
+                    }
+                };
+
+
+                var barcodeBitmap = barcodeWriter.Write(inputText);
+
+
+                BarcodeImage.Source = ConvertBitmapToBitmapImage(barcodeBitmap);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка генерации штрих-кода: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BarcodeGenerator"
         mc:Ignorable="d"
-        Title="Генератор штрихкодов" Height="600" Width="800">
+        Icon="https://static-00.iconduck.com/assets.00/qr-scan-icon-512x512-9bsp061y.png"
+        Title="Генератор штрихкодов" Height="600" Width="800" x:Name="window">
     <Grid Background="#463f3a">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -18,19 +19,22 @@
                  />
 
         <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <Button x:Name="GenerateButton"  Height="40" Width="300" FontSize="16" Content="Сгенерировать Штрихкод"
+            <Button x:Name="GenerateButton"  Height="40" Width="220" FontSize="16" Content="Сгенерировать Штрихкод"
                 Click="GenerateButton_Click" Margin="10" Background="#e0afa0" Foreground="#fff"/>
-            <Button Content="Сгенерировать QR" Width="200" Margin="10" Background="#e0afa0" Foreground="#fff" FontSize="16" Click="Button_Click"></Button>
+            <Button x:Name="DataMatrixBtn"  Height="40" Width="100" FontSize="16" Content="Data matrix"
+                Click="Button_ClickGenerate" Margin="10" Background="#e0afa0" Foreground="#fff"/>
+            <Button Content="Сгенерировать QR" Width="190" Margin="10" Background="#e0afa0" Foreground="#fff" FontSize="16" Click="Button_Click"></Button>
             <Button Width="200" Height="40" Margin="10" Background="#f4f3ee" FontWeight="DemiBold" Click="OpenFileButton_Click">
                 Прочитать из файла
             </Button>
         </StackPanel>
         
 
-        <Border Margin="5" Background="#f4f3ee" Grid.Row="2" CornerRadius="20">
-            <Image x:Name="BarcodeImage"  Stretch="Uniform" Margin="0,10,0,0" RenderTransformOrigin="0.5 0.5">
+        <Border x:Name="imageBorder" Margin="5" Background="#f4f3ee" Grid.Row="2" CornerRadius="20">
+            <Image x:Name="BarcodeImage" Margin="0,10,0,0" RenderTransformOrigin="0.5 0.5">
                 <Image.RenderTransform>
-                    <RotateTransform x:Name="rotate"></RotateTransform>
+                    <RotateTransform x:Name="rotate">
+                    </RotateTransform>
                 </Image.RenderTransform>
             </Image>
         </Border>
